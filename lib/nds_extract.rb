@@ -34,20 +34,16 @@ end
 # Your code after this point
 
 def movies_with_director_key(name, movies_collection)
-  # GOAL: For each Hash in an Array (movies_collection), provide a collection
-  # of movies and a directors name to the movie_with_director_name method
-  # and accumulate the returned Array of movies into a new Array that's
-  # returned by this method.
-  #
-  # INPUT:
-  # * name: A director's name
-  # * movies_collection: An Array of Hashes where each Hash represents a movie
-  #
-  # RETURN:
-  #
-  # Array of Hashes where each Hash represents a movie; however, they should all have a
-  # :director_name key. This addition can be done by using the provided
-  # movie_with_director_name method
+  result = []
+  index = 0 
+  
+  while index < movies_collection.length do
+    result << movie_with_director_name(name, movies_collection[index])
+    index += 1 
+  end
+  
+  result
+  
 end
 
 
@@ -63,9 +59,53 @@ def gross_per_studio(collection)
   #
   # Hash whose keys are the studio names and whose values are the sum
   # total of all the worldwide_gross numbers for every movie in the input Hash
+result = {}
+studio_array = []
+gross_array = []
+index = 0
+index_two = 1
+  
+  while index < collection.length do
+    studio_array << collection[index][:studio]
+    gross_array << collection[index][:worldwide_gross]
+    index += 1
+  end 
+  
+  index = 0
+  
+  while index < studio_array.length do
+    while index_two < studio_array.length do
+      if studio_array[index] == studio_array[index_two]
+        gross_array[index] += gross_array.delete_at(index_two)
+        studio_array[index] = studio_array.delete_at(index_two)
+      end 
+      index_two += 1 
+    end
+    index += 1
+  end
+  
+  index = 0 
+  
+  while index < studio_array.length do 
+    result[studio_array[index]] = gross_array[index]
+    index += 1
+  end 
+        
+  result
 end
 
 def movies_with_directors_set(source)
+  index = 0
+  result = []
+  while index < source.length do
+    result << movies_with_director_key(source[index][:name], source[index][:movies])
+    index += 1
+  end
+  
+  result
+
+    
+    
   # GOAL: For each director, find their :movies Array and stick it in a new Array
   #
   # INPUT:
