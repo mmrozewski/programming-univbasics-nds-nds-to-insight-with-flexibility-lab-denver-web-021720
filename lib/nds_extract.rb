@@ -64,7 +64,7 @@ index = 0
 result = {}
 
   while index < collection.length do
-    if !(gross_totals.has_key? 'collection[index][:studio]' )
+    if !(result.has_key? 'collection[index][:studio]' )
       result[collection[index][:studio]] = 0
     end
     index += 1
